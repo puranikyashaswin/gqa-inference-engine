@@ -21,13 +21,14 @@ heads), so GQA's memory savings compound with caching.
 
 ## Numbers
 
-d_model=512, H=8 query heads, prompt=64 tokens:
+d_model=512, H=8 query heads, G=2 KV heads, prompt=64 tokens, CPU (Apple Silicon), average of 5 runs:
 
 | Generated tokens | No cache | Cached | Speedup |
-|-----------------|----------|--------|---------|
-| 16              | ~30ms    | ~10ms  | ~3x     |
-| 64              | ~250ms   | ~30ms  | ~8x     |
-| 128             | ~900ms   | ~55ms  | ~16x    |
+|-----------------|----------|--------|---------| 
+| 16              | 7.5ms    | 2.8ms  | 2.5–3.0x |
+| 32              | 14.1ms   | 5.1ms  | 2.8x     |
+| 64              | 30.0ms   | 9.9ms  | 3.0x     |
+| 128             | 79.9ms   | 20.7ms | 3.4–5.2x |
 
 KV cache per batch element (256 tokens, float32):
 
