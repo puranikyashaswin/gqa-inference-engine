@@ -139,10 +139,16 @@ cache_bytes = 2 * G * S * d_k * dtype_bytes
 ```
 
 For Llama 2 70B (G=8, d_k=128, 80 layers, float16):
-- Per token cached: 2 * 8 * 128 * 80 * 2 = 327,680 bytes ~ 320 KB
-- At 4096 context: 320 KB * 4096 = 1.28 GB per batch element
+- Per token cached: 2 * 8 * 128 * 80 * 2 = 327,680 bytes = 320 KiB (or 327.68 KB)
+- At 4096 context:
+  - Binary calculation: 320 KiB * 4096 = 1,310,720 KiB = 1280 MiB = 1.25 GiB per batch element
+  - Decimal calculation: 327.68 KB * 4096 = 1,342,177.28 KB = 1342.18 MB = 1.34 GB per batch element
+  - (The mixed calculation `320 KiB * 4096 / 1024 / 1000` is sometimes written as 1.28 GB, but using standard binary units gives exactly 1.25 GiB, and standard decimal units gives 1.34 GB).
 
-With full MHA (G=64 instead of 8): 10.24 GB. That's why GQA matters.
+With full MHA (G=64 instead of 8):
+  - Binary calculation: 1.25 GiB * 8 = 10.0 GiB per batch element
+  - Decimal calculation: 1.342 GB * 8 = 10.74 GB per batch element
+  - (Or 10.24 GB in mixed notation). That's why GQA matters.
 
 ## How the Forward Pass Changes
 

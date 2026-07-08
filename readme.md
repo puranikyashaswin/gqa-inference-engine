@@ -32,11 +32,13 @@ d_model=512, H=8 query heads, G=2 KV heads, prompt=64 tokens, CPU (Apple Silicon
 
 KV cache per batch element (256 tokens, float32):
 
-| Config | Cache size |
-|--------|-----------|
-| MHA (G=8) | 1,048 KB |
-| GQA (G=2) | 262 KB |
-| MQA (G=1) | 131 KB |
+| Config | Cache size (Binary KiB) | Cache size (Decimal KB) |
+|--------|-------------------------|-------------------------|
+| MHA (G=8) | 1024 KiB                | 1,048 KB                |
+| GQA (G=2) | 256 KiB                 | 262 KB                  |
+| MQA (G=1) | 128 KiB                 | 131 KB                  |
+
+*Note: The benchmark script `benchmark.py` outputs binary KiB (labeled as KB for simplicity).*
 
 ## Usage
 

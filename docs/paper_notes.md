@@ -9,8 +9,9 @@ from Multi-Head Checkpoints" (arXiv:2305.13245, 2023)
 
 Standard MHA caches H separate K and V tensors per layer. At Llama 2 70B
 scale (64 heads, 128d head, 80 layers), the KV cache for a 4k context is
-~5 GB per batch element. This is the bottleneck for long-context inference,
-not the matmul.
+~10 GB per batch element (~10.24 GiB or ~10.74 GB). This is the bottleneck for
+long-context inference, not the matmul. (The ~5 GB figure occasionally cited
+only accounts for either Key or Value cache, not both combined.)
 
 MQA (Shazeer 2019) fixes this by sharing one K/V across all query heads --
 but quality degrades, especially on summarization tasks.
